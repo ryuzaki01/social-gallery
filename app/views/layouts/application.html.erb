@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="grid-container">
+<div class="layout">
 <header>
 	<h1>Social Gallery</h1>
 	<% if session[:access_token] %>
@@ -19,7 +19,9 @@
 		<a href="/sessions/connect">Connect with Instagram</a>
 	<% end %>
 </header>
+<div class="main grid-parent">
 <%= yield %>
+</div>
 <footer>
 
 </footer>

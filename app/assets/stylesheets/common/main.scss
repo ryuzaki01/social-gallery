@@ -20,6 +20,8 @@ $media-desktop-min: 1025px !default;
 body {
   background: white;
   color: #333;
+  margin: 0px;
+  overflow-x: hidden;
 }
 
 a {
@@ -29,6 +31,10 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+img {
+	max-width: 100%;
 }
 
 h1 {
@@ -44,6 +50,7 @@ ul {
 
 .layout {
   @extend %grid-container;
+  padding: 0px;
 }
 
 .main{
@@ -72,6 +79,46 @@ ul {
 
 .center {
 	margin: 0px auto;
+}
+
+header {
+	background: #2CAE2F;
+	color: #fff;
+	border-bottom: 3px solid #21a024;
+	padding: 20px;
+}
+
+#instagram {
+	li {
+		margin-bottom: 15px;
+		
+		a {
+			position: relative;
+			display: block;
+			
+			div {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				display: none;
+				background: rgba(0,0,0,0.3);
+				color: green;
+				word-break: break-all;
+				
+				strong {
+					color: olive;
+				}
+			}
+		}
+	}
+	
+	li:hover {
+		a {
+			div {
+				display: block;
+			}
+		}
+	}
 }
 
 /* ===================== */
