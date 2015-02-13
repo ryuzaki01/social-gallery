@@ -3,12 +3,26 @@
 <head>
   <title>SocialGallery</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= requirejs_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="grid-container">
+<header>
+	<h1>Social Gallery</h1>
+	<% if session[:access_token] %>
+		<img src="<%= @user.profile_picture %>" />
+		<h1><%= @user.username %></h1>
+		<span>Media : <%= @user.counts.media %>, Follower : <%= @user.counts.followed_by %>, Following : <%= @user.counts.follows %></span>
+		<a href="/sessions/disconnect">Disconnect</a>
+	<% else %>
+		<a href="/sessions/connect">Connect with Instagram</a>
+	<% end %>
+</header>
 <%= yield %>
+<footer>
 
+</footer>
+</div>
 </body>
 </html>

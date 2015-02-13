@@ -1,0 +1,108 @@
+$media-mobile-max: 767px !default;
+$media-tablet-min: 768px !default;
+$media-tablet-max: 1024px !default;
+$media-desktop-min: 1025px !default;
+
+@import "partials/unsemantic-vars";
+@import "partials/unsemantic-ie-snap";
+@import "partials/unsemantic-grid-responsive-tablet";
+
+/* =========== */
+/* All screens */
+/* =========== */
+
+@include unsemantic-grid-placeholders;
+@include unsemantic-grid-base-tablet;
+
+// `Basic HTML.
+//----------------------------------------------------------------------------------------------------
+
+body {
+  background: white;
+  color: #333;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1 {
+  padding-top: 20px;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+
+.layout {
+  @extend %grid-container;
+}
+
+.main{
+  @extend %grid-columns-all;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.center {
+	margin: 0px auto;
+}
+
+/* ===================== */
+/* "Mobile" screen width */
+/* ===================== */
+
+@media (max-width: $media-mobile-max) {
+  @include unsemantic-grid-placeholders(mobile);
+  .main {
+    @extend %mobile-grid-100;
+  }
+}
+
+/* ====================== */
+/* "Tablet" screen width */
+/* ====================== */
+
+@media (min-width: $media-tablet-min) and (max-width: $media-tablet-max) {
+  @include unsemantic-grid-placeholders(tablet);
+  .main {
+    @extend %tablet-grid-100;
+  }
+}
+
+/* ====================== */
+/* "Desktop" screen width */
+/* ====================== */
+
+@media (min-width: $media-desktop-min) {
+  @include unsemantic-grid-placeholders(desktop);
+  .main {
+    @extend %desktop-grid-100;
+  }
+}

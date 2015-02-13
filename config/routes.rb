@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+
+
+	root 'main#show'
+	
+	
+	get 'main/:action' => 'main#:action'
+	
+	get 'main/start' => "main#start", :as => :start
+	
+	get 'sessions/:action' => 'sessions#:action'
+	
+	get 'api/:action/:id' => 'api#:action'
+	
+	get ':action' => 'main#:action'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

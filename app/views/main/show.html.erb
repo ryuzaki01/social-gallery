@@ -1,0 +1,12 @@
+<div>
+	<ul id="instagram">
+		<% if @photos.size > 0 %>
+			<% @photos.each do |p| %>
+				<% owner = %>
+				<li><a href="<%= p.link %>" target="_blank"><img src="<%= p.images.standard_resolution.url %>"></a><br/><%= p.caption.text %><br/>by : <strong><%= (p.user.fullname ? p.user.fullname : p.user.username) %></strong></li>
+			<% end %>
+		<% else %>
+			<li>No photo</li>
+		<% end %>
+	</ul>
+</div>
