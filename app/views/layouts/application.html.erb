@@ -11,12 +11,12 @@
 <div class="layout">
 	<header class="grid-100 grid-parent">
 		<div class="grid-25 tablet-grid-25 mobile-grid-25">
-			<a class="button-icon ic sg-home" href="<%= root_path %>" title="Go to Home"></a>
+			<a class="button-icon ic sg-instagram" href="<%= root_path %>" title="Go to Home"></a>
 		</div>
-		<div class="grid-50 tablet-grid-50 mobile-grid-75 text-center mobile-text-right">
-			<span class="logo ic sg-instagram">Social Gallery</span>
+		<div class="grid-50 tablet-grid-50 hide-on-mobile text-center mobile-text-right">
+			<span class="logo">Social Gallery</span>
 		</div>
-		<div class="grid-25 text-right">
+		<div class="grid-25 tablet-grid-25 mobile-grid-75 text-right">
 			<% if session[:access_token] %>
 				<a href="/main/profile" class="profile-link" title="<%= @user.username %> profile"><img class="small-avatar" src="<%= @user.profile_picture %>" /> <b><%= @user.username %></b></a>
 				<a class="button" href="/sessions/disconnect">Disconnect</a>
