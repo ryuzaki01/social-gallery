@@ -34,7 +34,7 @@ define([], function () {
 				} else {
 					$.each($('#'+Ig.options.target+' li:not(.visible)'), function(){
 						if(Ig.visible($(this))){
-							$(this).addClass('slideup');
+							$(this).addClass('visible');
 						}
 					});
 				}
@@ -94,7 +94,7 @@ define([], function () {
 												'<i class="ic sg-share"></i>'+
 											'</a></li>'+
 										'</ul>'+
-										'<b>'+media.user.username+'</b>'+(media.caption?' : '+media.caption.text:'')+
+										'<section><b>'+media.user.username+'</b>'+(media.caption?' : '+media.caption.text:'')+'</section>'+
 									'</div>'+
 									'<img src="'+media.images.standard_resolution.url+'">'+
 								'</span>'+

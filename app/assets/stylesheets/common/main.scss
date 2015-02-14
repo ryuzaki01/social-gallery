@@ -17,14 +17,6 @@ $media-desktop-min: 1025px !default;
 
 // Animation
 //----------------------------------------------------------------------------------------------------
-@-webkit-keyframes slideup {
-    to { -webkit-transform: translateY(0); }
-}
-
-@keyframes slideup {
-    to { transform: translateY(0); }
-}
-
 @-webkit-keyframes fadein {
 	from { opacity: 0; }
     to { opacity: 1 }
@@ -133,6 +125,8 @@ header {
 	
 	li {
 		margin-bottom: 15px;
+		-webkit-transform: translateY(150px);
+		transform: translateY(150px);
 		
 		span {
 			border-radius: 8px;
@@ -147,7 +141,7 @@ header {
 				height: calc(100% - 20px);
 				width: 90%;
 				width: calc(100% - 20px);
-				overflow-x: hidden;
+				overflow: hidden;
 				text-overflow: ellipsis;
 				background: rgba(0,0,0,0.3);
 				color: #fff;
@@ -163,10 +157,16 @@ header {
 					color: #2f0;
 				}
 				
+				section {
+					height: 60%;
+					height: calc(100% - 5em);
+					overflow-y: auto;
+				}
+				
 				.ic {
 					cursor: pointer;
 					color: #fff;
-					font-size: 1.5em;
+					font-size: 2em;
 					line-height: 2em;
 				}
 				.ic.active{
@@ -189,16 +189,15 @@ header {
 		}
 	}
 	
-	li.slideup {
-		-webkit-animation: slideup 0.8s ease forwards;
-		animation: slideup 0.8s ease forwards;
-		-webkit-transform: translateY(150px);
-		transform: translateY(150px);
+	li.visible {
+		-webkit-transform: translateY(0px);
+		transform: translateY(0px);
+		transition: -webkit-transform 0.8s;
 	}
 	
-	li.slideup:nth-child(odd) {
-		-webkit-animation-duration: 0.6s;
-		animation-duration: 0.6s;
+	li.visible:nth-child(odd) {
+		-webkit-transition: -webkit-transform 0.6s;
+		transition: -webkit-transform 0.6s;
 	}
 }
 
