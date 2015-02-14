@@ -19,12 +19,20 @@ define([], function () {
 			Ig.last_max = null;
 			Ig.fetch();
 			
+			$('#'+Ig.options.target).delegate('.sg-heart:not(.active)', 'click', function(){
+				Ig.like($(this).parent().parent().parent().parent().parent().parent().attr('id'));
+			});
+			
+			$('#'+Ig.options.target).delegate('.sg-heart.active', 'click', function(){
+				Ig.unlike($(this).parent().parent().parent().parent().parent().parent().attr('id'));
+			});
+			
 			$(window).scroll(function() {
 				if($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
 					if(Ig.hasNext())
 						Ig.next();
 				} else {
-					$.each($('#instagram li:not(.visible)'), function(){
+					$.each($('#'+Ig.options.target+' li:not(.visible)'), function(){
 						if(Ig.visible($(this))){
 							$(this).addClass('slideup');
 						}
@@ -71,13 +79,32 @@ define([], function () {
 				if(data.medias.length > 0){
 					for(i in data.medias){
 						media = data.medias[i];
-						$('#'+Ig.options.target).append('<li id="'+media.id+'" class="grid-25 tablet-grid-30 mobile-grid-100"><span class="grid-100 grid-parent"><div><a class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center" target="_blank"><i class="ic sg-heart '+(media.user_has_liked?'active':'')+'"></i></a><a class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center" href="'+media.link+'" target="_blank"><i class="ic sg-link"></i></a><a class="grid-33 grid-parent text-center" href="'+media.link+'" target="_blank"><i class="ic sg-share"></i></a>by : <b>'+media.user.username+'<br/></b>'+(media.caption?media.caption.text:'')+'</div><img src="'+media.images.standard_resolution.url+'"></span></li>');
+						$('#'+Ig.options.target).append(
+							'<li id="'+media.id+'" class="grid-25 tablet-grid-30 mobile-grid-100">'+
+								'<span class="grid-100 grid-parent">'+
+									'<div>'+
+										'<ul class="grid-100 grid-parent">'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a target="_blank">'+
+												'<i class="ic sg-heart '+(media.user_has_liked?'active':'')+'"></i>'+
+											'</a></li>'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="'+media.link+'" target="_blank">'+
+												'<i class="ic sg-link"></i>'+
+											'</a></li>'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="'+media.link+'" target="_blank">'+
+												'<i class="ic sg-share"></i>'+
+											'</a></li>'+
+										'</ul>'+
+										'<b>'+media.user.username+'</b>'+(media.caption?' : '+media.caption.text:'')+
+									'</div>'+
+									'<img src="'+media.images.standard_resolution.url+'">'+
+								'</span>'+
+							'</li>');
 					}
 				} else {
 					$('#'+Ig.options.target).append('<li>No result.</li>');
 				}
 				
-				$.each($('#instagram li:not(.visible)'), function(){
+				$.each($('#'+Ig.options.target+' li:not(.visible)'), function(){
 					if(Ig.visible($(this))){
 						$(this).addClass('visible');
 					}
@@ -86,7 +113,7 @@ define([], function () {
 				$('#loading').hide();
 				
 				Ig.fetching = false;
-			});
+			}).error(function() { Ig.fetching = false; $('#loading').hide(); });
 		},
 		
 		like: function(id){
@@ -95,7 +122,7 @@ define([], function () {
 			$.getJSON( url, function(data){
 				$('#'+id).find('.sg-heart').addClass('active');
 				$('#loading').hide();
-			});
+			}).error(function() { $('#loading').hide(); });
 		},
 		
 		unlike: function(id){
@@ -104,7 +131,7 @@ define([], function () {
 			$.getJSON( url, function(data){
 				$('#'+id).find('.sg-heart').removeClass('active');
 				$('#loading').hide();
-			});
+			}).error(function() { $('#loading').hide(); });
 		},
 		
 		hasNext: function(){

@@ -36,15 +36,6 @@ define([
 					// window.location.href = '/tag/'+$(this).val();    
 				// }
 			});
-			
-			$('#instagram').delegate('.sg-heart:not(.active)', 'click', function(){
-				console.log($(this).parent().parent().parent().parent().attr('id'));
-				Ig.like($(this).parent().parent().parent().parent().attr('id'));
-			});
-			
-			$('#instagram').delegate('.sg-heart.active', 'click', function(){
-				Ig.unlike($(this).parent().parent().parent().parent().attr('id'));
-			});
 		},
 		data: Data,
 		views : {
