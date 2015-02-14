@@ -1,12 +1,5 @@
 <div>
-	<%#= debug @photos %>
 	<ul class="grid-parent grid-100 tablet-grid-100 mobile-grid-100" id="instagram">
-		<% if  @photos && @photos.size > 0 %>
-			<% @photos.each do |p| %>
-				<li class="grid-25 tablet-grid-30 mobile-grid-100"><a class="grid-100 grid-parent" href="<%= p.link %>" target="_blank"><div><%= p.caption.text if p.caption? %><br/>by : <strong><%= (p.user.fullname ? p.user.fullname : p.user.username) %></strong></div><img src="<%= p.images.standard_resolution.url %>"></a></li>
-			<% end %>
-		<% else %>
-			<li>No photo</li>
-		<% end %>
+		
 	</ul>
 </div>

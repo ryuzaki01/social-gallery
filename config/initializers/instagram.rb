@@ -7,4 +7,4 @@ Instagram.configure do |config|
 	config.client_secret = "65585067aae44de8ba2977290d5daf7a"
 
 end
-CALLBACK_URL = "http://localhost:3000/sessions/callback"
+CALLBACK_URL = "http://192.168.0.12:3000/sessions/callback"

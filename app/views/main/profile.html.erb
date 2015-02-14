@@ -1,0 +1,21 @@
+<div>
+	<div class="grid-100 profile">
+		<%#= debug @user %>
+		<div class="grid-75 tablet-grid-75 mobile-grid-100 info">
+			<span class="avatar"><img src="<%= @user.profile_picture %>" /></span>
+			<div>
+				<strong><%= @user.username %></strong><br/>
+				<b><%= @user.full_name if @user.full_name? %></b> <a href="<%= @user.website if @user.website? %>" target="_blank"><%= @user.website if @user.website? %></a>
+			</div>
+		</div>
+		<div class="grid-25 mobile-grid-100 text-center stats">
+			<ul>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.media %><br/>Media</li>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.followed_by %><br>Follower</li>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.follows %><br/>Following</li>
+			</ul>
+		</div>
+	</div>
+	<ul class="grid-parent grid-100 tablet-grid-100 mobile-grid-100" id="instagram">
+	</ul>
+</div>

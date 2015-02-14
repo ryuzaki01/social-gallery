@@ -3,12 +3,13 @@ Rails.application.routes.draw do
 
 	root 'main#show'
 	
-	
 	get 'main/:action' => 'main#:action'
 	
 	get 'main/start' => "main#start", :as => :start
 	
 	get 'sessions/:action' => 'sessions#:action'
+	
+	get 'api/:action' => 'api#:action'
 	
 	get 'api/:action/:id' => 'api#:action'
 	

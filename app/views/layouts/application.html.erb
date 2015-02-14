@@ -2,29 +2,39 @@
 <html>
 <head>
   <title>SocialGallery</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1" />
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= requirejs_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div class="layout">
-<header>
-	<h1>Social Gallery</h1>
-	<% if session[:access_token] %>
-		<img src="<%= @user.profile_picture %>" />
-		<h1><%= @user.username %></h1>
-		<span>Media : <%= @user.counts.media %>, Follower : <%= @user.counts.followed_by %>, Following : <%= @user.counts.follows %></span>
-		<a href="/sessions/disconnect">Disconnect</a>
-	<% else %>
-		<a href="/sessions/connect">Connect with Instagram</a>
-	<% end %>
-</header>
-<div class="main grid-parent">
-<%= yield %>
+	<header class="grid-100 grid-parent">
+		<div class="grid-25 tablet-grid-25 mobile-grid-25">
+			<a class="button-icon ic sg-home" href="<%= root_path %>" title="Go to Home"></a>
+		</div>
+		<div class="grid-50 tablet-grid-50 mobile-grid-75 text-center mobile-text-right">
+			<span class="logo ic sg-instagram">Social Gallery</span>
+		</div>
+		<div class="grid-25 text-right">
+			<% if session[:access_token] %>
+				<a href="/main/profile" class="profile-link" title="<%= @user.username %> profile"><img class="small-avatar" src="<%= @user.profile_picture %>" /> <b><%= @user.username %></b></a>
+				<a class="button" href="/sessions/disconnect">Disconnect</a>
+			<% else %>
+				<a class="button" href="/sessions/connect">Connect with Instagram</a>
+			<% end %>
+		</div>
+	</header>
+	<div class="main grid-parent">
+		<%= yield %>
+	</div>
 </div>
-<footer>
-
-</footer>
+<div id="loading">
+	<div class="spinner">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
 </div>
 </body>
 </html>
