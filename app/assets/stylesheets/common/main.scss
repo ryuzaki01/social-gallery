@@ -57,15 +57,15 @@ body {
 }
 
 a {
-  color: blue;
+  color: #2f0;
   text-decoration: none;
 
   &:hover {
-    text-decoration: none;
+    color: #FEA400;
   }
 }
 
-img {
+img, video {
 	max-width: 100%;
 }
 
@@ -114,25 +114,28 @@ ul {
 }
 
 header {
-	background: #2CAE2F;
-	color: #fff;
-	border-bottom: 3px solid #21a024;
+	color: #2CAE2F;
+	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
 	padding: 5px;
 }
 
 #instagram {
 	margin-top: 10px;
 	
-	li {
-		margin-bottom: 15px;
+	> li {
+		margin-bottom: 1em;
 		-webkit-transform: translateY(150px);
 		transform: translateY(150px);
 		
 		span {
-			border-radius: 8px;
 			position: relative;
 			display: block;
+			border-radius: 8px;
 			overflow: hidden;
+			-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+			-moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+			box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 			
 			div {
 				position: absolute;
@@ -146,13 +149,13 @@ header {
 				background: rgba(0,0,0,0.3);
 				color: #fff;
 				text-align: justify;
-				padding: 10px;
+				padding: 8px 10px;
 				word-break: break-word;
 				-webkit-transition: right 0.3s;
 				-moz-transition: right 0.3s;
 				-o-transition: right 0.3s;
 				transition: right 0.3s;
-	
+				
 				b {
 					color: #2f0;
 				}
@@ -161,6 +164,7 @@ header {
 					height: 60%;
 					height: calc(100% - 5em);
 					overflow-y: auto;
+					white-space: pre;
 				}
 				
 				.ic {
@@ -174,10 +178,15 @@ header {
 				}
 			}
 			
-			img {
-				-webkit-animation: fadein 1s;
-				animation: fadein 1s;
+			img, video {
+				opacity: 0;
+				width: 100%;
+				height: 100%;
+				-webkit-transition: opacity 1s;
+				transition: opacity 1s;
 			}
+			
+			video source { width: 100%; height: auto; }
 		}
 		
 		&:hover {
@@ -187,22 +196,73 @@ header {
 				}
 			}
 		}
+		
+		.small-avatar {
+			opacity: 0;
+			border: 1px solid #fff;
+			border-radius: 2em;
+			width: 3em;
+			height: 3em;
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			-webkit-tranisiton: opacity 1s;
+			tranisiton: opacity 1s;
+		}
 	}
 	
-	li.visible {
+	> li.visible {
 		-webkit-transform: translateY(0px);
 		transform: translateY(0px);
 		transition: -webkit-transform 0.8s;
+		
+		span {
+			img, video {
+				opacity: 1;
+			}
+		}
+		
+		.small-avatar {
+			opacity: 1;
+		}
 	}
 	
-	li.visible:nth-child(odd) {
+	> li.visible:nth-child(odd) {
 		-webkit-transition: -webkit-transform 0.6s;
 		transition: -webkit-transform 0.6s;
 	}
 }
 
+#comments {
+	margin-top: 20px;
+	background: #ddd;
+	padding: 10px;
+	
+	li {
+		padding: 5px;
+		background: #fff;
+		-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+		box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+		margin-bottom: 10px;
+		
+		> img {
+			width: 40px;
+			height: 40px;
+			border-radius: 5px;
+			float: left;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+		
+		> a {
+			display: block;
+		}
+	}
+}
+
 .logo {
-	color: #fff;
+	color: #2CAE2F;
 	font-size: 2em;
 	line-height: 1.5em;
 	font-weight: bold;
@@ -215,14 +275,13 @@ header {
 	display: inline-block;
 	vertical-align: middle;
 	padding: 5px;
-	color: #fff;
+	color: #2CAE2F;
 	-webkit-box-shadow: inset 0px 0px 0px rgba(0,0,0, 0.3);
 	box-shadow: inset 0px 0px 0px rgba(0,0,0, 0.3);
 	-webkit-transition: box-shadow 0.3s;
 	transition: box-shadow 0.3s;
 	
 	&:hover {
-		background-color: #21a024;
 		-webkit-box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
 		box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
 	}
@@ -239,6 +298,7 @@ header {
 .profile {
 	padding: 10px;
 	background-color: #EEE;
+	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	
 	.info {
@@ -316,17 +376,14 @@ header {
 .button-icon {
 	font-size: 2em;
 	line-height: 1.5em;
-	-webkit-text-shadow: 1px 1px 2px #242424;
-	text-shadow: 1px 1px 2px #242424;
 	-webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.3);
 	box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.3);
 	-webkit-transition: box-shadow 0.3s;
 	transition: box-shadow 0.3s;
-	color: #fff;
+	color: #A0D000;
 	padding: 5px;
 	
 	&:hover {
-		background-color: #21a024;
 		-webkit-box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
 		box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
 	}

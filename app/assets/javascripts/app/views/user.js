@@ -4,7 +4,7 @@ define([], function () {
         init: function (e) {
 			Ig.init({
 				get: 'user_media'
-			}, 'self');
+			}, $('#userid').val());
 			console.log('Inited Profile');
 		}
 	}

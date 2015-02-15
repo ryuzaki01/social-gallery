@@ -1,0 +1,18 @@
+<div>
+	<div class="grid-100 profile">
+		<%#= debug @tag %>
+		<input type="hidden" id="userid" value="<%= @tag.name %>" />
+		<div class="grid-75 tablet-grid-75 mobile-grid-100 info">
+			<div>
+				<strong><%= @tag.name %></strong><br/>
+			</div>
+		</div>
+		<div class="grid-25 mobile-grid-100 text-left stats">
+			<ul>
+				<li class="grid-100 tablet-grid-100 mobile-grid-100"><%= @tag.media_count %><br/>Media</li>
+			</ul>
+		</div>
+	</div>
+	<ul class="grid-parent grid-100 tablet-grid-100 mobile-grid-100" id="instagram">
+	</ul>
+</div>

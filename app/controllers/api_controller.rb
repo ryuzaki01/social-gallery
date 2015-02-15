@@ -5,10 +5,10 @@ class ApiController < ApplicationController
   def user_media
 	client = Instagram.client(:access_token => session[:access_token])
 
-	if params[:id]
-		@photos = client.user_recent_media(:count => 12, :max_id => params[:id])
+	if params[:max]
+		@photos = client.user_recent_media(params[:id], :count => 12, :max_id => params[:max])
 	else
-		@photos = client.user_recent_media(:count => 12)
+		@photos = client.user_recent_media(params[:id], :count => 12)
 	end
 	
 	next_max_id = @photos.pagination ? @photos.pagination.next_max_id : nil;
@@ -26,6 +26,23 @@ class ApiController < ApplicationController
 		@photos = client.user_media_feed(:count => 12, :max_id => params[:id])
 	else
 		@photos = client.user_media_feed(:count => 12)
+	end
+	
+	next_max_id = @photos.pagination ? @photos.pagination.next_max_id : nil;
+	
+	respond_to do |f|
+		f.html #index.html.erb
+		f.json { render json: { "medias" => @photos.as_json(:root => false), "max_id" =>  next_max_id }.to_json }
+	end
+  end
+  
+  def tag
+	client = Instagram.client()
+
+	if params[:id]
+		@photos = client.tag_recent_media(params[:id], :count => 12, :max_id => params[:max])
+	else
+		@photos = client.tag_recent_media(params[:id], :count => 12)
 	end
 	
 	next_max_id = @photos.pagination ? @photos.pagination.next_max_id : nil;

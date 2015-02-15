@@ -2,12 +2,16 @@ define([
     "jQuery",
 	"app/views/start",
 	"app/views/profile",
+	"app/views/user",
+	"app/views/tag",
 	"app/views/show",
 	"app/data"
 	], function (
     $,
 	startView,
 	profileView,
+	userView,
+	tagView,
 	showView,
 	Data
 	) {
@@ -41,6 +45,8 @@ define([
 		views : {
 			start: startView,
 			profile: profileView,
+			user: userView,
+			tag: tagView,
 			show: showView
 		}
 	}

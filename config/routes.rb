@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 	
 	get 'main/:action' => 'main#:action'
 	
+	get 'main/:action/:id' => 'main#:action'
+	
 	get 'main/start' => "main#start", :as => :start
 	
 	get 'sessions/:action' => 'sessions#:action'
@@ -13,7 +15,8 @@ Rails.application.routes.draw do
 	
 	get 'api/:action/:id' => 'api#:action'
 	
-	get ':action' => 'main#:action'
+	get 'api/:action/:id/:max' => 'api#:action'
+	
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

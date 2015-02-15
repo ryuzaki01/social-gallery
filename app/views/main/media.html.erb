@@ -1,0 +1,18 @@
+<div style="margin-top: 20px;">
+	<div class="grid-75 tablet-grid-75 mobile-grid-100 text-center media-container">
+		<% if @media.type == 'image' %>
+			<img src="<%= @media.images.standard_resolution.url %>" />
+		<% else %>
+			<video src="<%= @media.videos.low_resolution.url %>" controls/>
+		<% end %>
+	</div>
+	<div class="grid-25 tablet-grid-25 mobile-grid-100">
+		<b><%= @media.comments.count %> Comments in total</b>
+		<ul id="comments">
+			<li class="grid-100 tablet-grid-100 mobile-grid-100"><img src="<%= @media.user.profile_picture %>" /><a href="/main/user/<%= @media.user.username %>"><%= @media.user.username %></a><%= @media.caption.text if @media.caption? %></li>
+			<% @media.comments.data.each do |c| %>
+				<li class="grid-100 tablet-grid-100 mobile-grid-100"><img src="<%= c.from.profile_picture %>"><a href="/main/user/<%= c.from.username %>"><%= c.from.username %></a><%= c.text %></li>
+			<% end %>
+		</ul>
+	</div>
+</div>

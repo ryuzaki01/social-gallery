@@ -1,6 +1,7 @@
 define([], function () {
     return {
 		last_max: null,
+		userid: false,
 		fetching: false,
 		options: {
 			target: 'instagram',
@@ -11,12 +12,16 @@ define([], function () {
 			mock: false,
 			useHttp: false
 		},
-		init: function(options){
+		init: function(options, userid){
 			$('#'+Ig.options.target).html('');
+			//reset
+			Ig.last_max = null;
+			Ig.userid = userid?userid:false;
+			Ig.options = Ig.defaults;
+			
 			for(i in options){
 				Ig.options[i] = options[i];
 			}
-			Ig.last_max = null;
 			Ig.fetch();
 			
 			$('#'+Ig.options.target).delegate('.sg-heart:not(.active)', 'click', function(){
@@ -28,16 +33,16 @@ define([], function () {
 			});
 			
 			$(window).scroll(function() {
-				if($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+				if($(window).scrollTop() + $(window).height() >= ($(document).height() - ($('#instagram > li:eq(1)').height() * 2))) {
 					if(Ig.hasNext())
 						Ig.next();
-				} else {
-					$.each($('#'+Ig.options.target+' li:not(.visible)'), function(){
-						if(Ig.visible($(this))){
-							$(this).addClass('visible');
-						}
-					});
 				}
+					
+				$.each($('#'+Ig.options.target+' > li:not(.visible)'), function(){
+					if(Ig.visible($(this))){
+						$(this).addClass('visible');
+					}
+				});
 			});
 		},
 		
@@ -47,10 +52,9 @@ define([], function () {
 			viewTop       = $w.scrollTop(),
 			viewBottom    = viewTop + $w.height(),
 			_top          = $t.offset().top,
-			_bottom       = _top + $t.height(),
+			_bottom       = _top + $t.height() + 100,
 			compareTop    = _bottom,
 			compareBottom = _top;
-			
 			return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
 		},
 		
@@ -63,10 +67,15 @@ define([], function () {
 			console.log('Fetching '+maxid);
 			
 			max = maxid;
+			url = "/api/" + Ig.options.get;
+			
+			if(Ig.userid)
+				url += '/'+Ig.userid;
+				
 			if(max){
-				url = "/api/" + Ig.options.get +'/'+max+'.json';
+				url += '/'+max+'.json';
 			} else {
-				url = "/api/" + Ig.options.get +'.json';
+				url += '.json';
 			}
 			$.getJSON( url, function(data){
 				if(max == data.max_id){
@@ -77,26 +86,27 @@ define([], function () {
 				}
 				
 				if(data.medias.length > 0){
-					for(i in data.medias){
+					for(i = 0; i < data.medias.length; i++){
 						media = data.medias[i];
 						$('#'+Ig.options.target).append(
-							'<li id="'+media.id+'" class="grid-25 tablet-grid-30 mobile-grid-100">'+
+							'<li id="'+media.id+'" class="grid-25 tablet-grid-33 mobile-grid-100">'+
 								'<span class="grid-100 grid-parent">'+
 									'<div>'+
 										'<ul class="grid-100 grid-parent">'+
-											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a target="_blank">'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a target="_blank" title="'+(media.user_has_liked?'Unlike this ?':'Like this ?')+'">'+
 												'<i class="ic sg-heart '+(media.user_has_liked?'active':'')+'"></i>'+
 											'</a></li>'+
-											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="'+media.link+'" target="_blank">'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="/main/media/'+media.id+'" title="Go to Link">'+
 												'<i class="ic sg-link"></i>'+
 											'</a></li>'+
-											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="'+media.link+'" target="_blank">'+
+											'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a onclick="Ig.share(\''+media.id+'\', \''+media.images.low_resolution.url+'\')" target="_blank" title="Share ?">'+
 												'<i class="ic sg-share"></i>'+
 											'</a></li>'+
 										'</ul>'+
-										'<section><b>'+media.user.username+'</b>'+(media.caption?' : '+media.caption.text:'')+'</section>'+
+										'<section>'+(media.caption ? '<a class="userlink" href="/main/user/'+media.caption.from.username+'">'+media.caption.from.username+'</a> : '+media.caption.text.replace(/(^| )@([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"userlink\" href=\"/main/user/$2\">@$2</a>").replace(/(^| )#([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"tag\" href=\"/main/tag/$2\">#$2</a>"):'')+'</section>'+
 									'</div>'+
-									'<img src="'+media.images.standard_resolution.url+'">'+
+									(media.type == 'video'? '<video src="'+(media.videos.low_bandwidth?media.videos.low_bandwidth.url:media.videos.low_resolution.url)+'" muted loop autoplay>' : '<img src="'+media.images.low_resolution.url+'">')+
+									'<img class="small-avatar" src="'+media.user.profile_picture+'" title="'+media.user.full_name+'">'+
 								'</span>'+
 							'</li>');
 					}
@@ -104,7 +114,7 @@ define([], function () {
 					$('#'+Ig.options.target).append('<li>No result.</li>');
 				}
 				
-				$.each($('#'+Ig.options.target+' li:not(.visible)'), function(){
+				$.each($('#'+Ig.options.target+' > li:not(.visible)'), function(){
 					if(Ig.visible($(this))){
 						$(this).addClass('visible');
 					}
@@ -134,12 +144,33 @@ define([], function () {
 			}).error(function() { $('#loading').hide(); });
 		},
 		
+		share :function(id){
+			url = window.location.origin+'/main/media/'+id;
+			var sharerURL = "http://www.facebook.com/sharer/sharer.php?u=" + encodeURI(url);
+			window.open(
+			  sharerURL,
+			  'facebook-share-dialog', 
+			  'width=626,height=436');
+			return  false;
+		},
+		
 		hasNext: function(){
 			return (Ig.last_max != null);
 		},
 		
 		next: function(){
 			Ig.fetch(Ig.last_max);
+		},
+		
+		defaults: {
+			target: 'instagram',
+			get: 'popular',
+			userid: false,
+			resolution: 'thumbnail',
+			sortBy: 'none',
+			links: true,
+			mock: false,
+			useHttp: false
 		}
 	}
 });
