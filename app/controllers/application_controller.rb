@@ -1,4 +1,5 @@
 require "instagram"
+require "socket"
 class ApplicationController < ActionController::Base
 	OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 	# Prevent CSRF attacks by raising an exception.

@@ -15,7 +15,7 @@ class ApiController < ApplicationController
 	
 	respond_to do |f|
 		f.html #index.html.erb
-		f.json { render json: { "medias" => @photos.as_json(:root => false), "max_id" =>  next_max_id }.to_json }
+		f.json { render json: { "medias" => @photos.as_json(:root => false), "authed" => (session[:access_token] ? true : false), "max_id" =>  next_max_id }.to_json }
 	end
   end
   
@@ -32,7 +32,7 @@ class ApiController < ApplicationController
 	
 	respond_to do |f|
 		f.html #index.html.erb
-		f.json { render json: { "medias" => @photos.as_json(:root => false), "max_id" =>  next_max_id }.to_json }
+		f.json { render json: { "medias" => @photos.as_json(:root => false), "authed" => (session[:access_token] ? true : false), "max_id" =>  next_max_id }.to_json }
 	end
   end
   
@@ -49,7 +49,7 @@ class ApiController < ApplicationController
 	
 	respond_to do |f|
 		f.html #index.html.erb
-		f.json { render json: { "medias" => @photos.as_json(:root => false), "max_id" =>  next_max_id }.to_json }
+		f.json { render json: { "medias" => @photos.as_json(:root => false), "authed" => (session[:access_token] ? true : false), "max_id" =>  next_max_id }.to_json }
 	end
   end
   
@@ -59,14 +59,14 @@ class ApiController < ApplicationController
 	if params[:id]
 		@photos = client.media_popular(:count => 12, :max_id => params[:id])
 	else
-		@photos = client.media_popular(:count => 12)
+		@photos = client.media_popular(:count => 13)
 	end
 	
 	next_max_id = @photos.pagination ? @photos.pagination.next_max_id : nil;
 	
 	respond_to do |f|
 		f.html #index.html.erb
-		f.json { render json: { "medias" => @photos.as_json(:root => false), "max_id" =>  next_max_id }.to_json }
+		f.json { render json: { "medias" => @photos.as_json(:root => false), "authed" => (session[:access_token] ? true : false), "max_id" =>  next_max_id }.to_json }
 	end
   end
   

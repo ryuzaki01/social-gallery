@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-  before_filter :authenticate_user!, :only => [:show, :tag, :logout]
+  before_filter :authenticate_user!, :only => [:show, :tag, :logout, :profile, :media, :tag]
   def start
 	client = Instagram.client()
   end

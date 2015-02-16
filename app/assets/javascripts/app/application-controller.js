@@ -5,6 +5,7 @@ define([
 	"app/views/user",
 	"app/views/tag",
 	"app/views/show",
+	"app/views/media",
 	"app/data"
 	], function (
     $,
@@ -13,6 +14,7 @@ define([
 	userView,
 	tagView,
 	showView,
+	mediaView,
 	Data
 	) {
 
@@ -47,7 +49,8 @@ define([
 			profile: profileView,
 			user: userView,
 			tag: tagView,
-			show: showView
+			show: showView,
+			media: mediaView
 		}
 	}
 });

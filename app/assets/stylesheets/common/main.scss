@@ -155,6 +155,7 @@ header {
 				-moz-transition: right 0.3s;
 				-o-transition: right 0.3s;
 				transition: right 0.3s;
+				z-index: 2;
 				
 				b {
 					color: #2f0;
@@ -386,6 +387,26 @@ header {
 	&:hover {
 		-webkit-box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
 		box-shadow: inset 0px 0px 10px rgba(0,0,0, 0.3);
+	}
+}
+
+.media-container {
+	position: relative;
+	
+	img {
+		-webkit-box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+	}
+}
+
+.media-icons {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	font-size: 2em;
+	
+	a {
+		cursor: pointer;
 	}
 }
 
