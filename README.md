@@ -19,7 +19,7 @@ end
 CALLBACK_URL = "http://192.168.0.12:3000/sessions/callback"
 ```
 
-[Ihsan Fauzi]:http://www.opcodengine.com/
+[Ihsan Fauzi] http://www.opcodengine.com/
 
 [requirejs-rails] https://rubygems.org/gems/requirejs-rails
 
@@ -27,4 +27,4 @@ CALLBACK_URL = "http://192.168.0.12:3000/sessions/callback"
 
 [unsemantic] http://www.unsemantic.com
 
-[JQuery]:http://jquery.com
+[JQuery] http://jquery.com
