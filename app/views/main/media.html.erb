@@ -8,9 +8,11 @@
 <div style="margin-top: 20px;">
 	<div class="grid-75 tablet-grid-75 mobile-grid-100 text-center media-container">
 		<div class="media-icons text-center">
+			<%if @user %>
 			<a target="_blank" title="<%= (@media.user_has_liked ? 'Unlike this ?' : 'Like this ?') %>">
 				<i class="ic sg-heart <%= (@media.user_has_liked ? 'active' : '') %>"></i>
 			</a>
+			<% end %>
 			<a onclick="Ig.share('<%= @media.id %>', '<%= @media.images.standard_resolution.url %>')" target="_blank" title="Share ?">
 				<i class="ic sg-share"></i>
 			</a>

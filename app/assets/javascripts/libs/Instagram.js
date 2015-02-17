@@ -90,23 +90,22 @@ define([], function () {
 						media = data.medias[i];
 						item = '<li id="'+media.id+'" class="grid-25 tablet-grid-33 mobile-grid-100">'+
 								'<span class="grid-100 grid-parent">'+
-									'<div>';
-									
-						if(data.authed){
-							item += '<ul class="grid-100 grid-parent">'+
-										'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a target="_blank" title="'+(media.user_has_liked?'Unlike this ?':'Like this ?')+'">'+
-											'<i class="ic sg-heart '+(media.user_has_liked?'active':'')+'"></i>'+
-										'</a></li>'+
+									'<div>'+
+									'<ul class="grid-100 grid-parent">'+
 										'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a href="/main/media/'+media.id+'" title="Go to Link">'+
-											'<i class="ic sg-link"></i>'+
+												'<i class="ic sg-link"></i>'+
 										'</a></li>'+
 										'<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a onclick="Ig.share(\''+media.id+'\', \''+media.images.low_resolution.url+'\')" target="_blank" title="Share ?">'+
 											'<i class="ic sg-share"></i>'+
-										'</a></li>'+
-									'</ul>';
+										'</a></li>';
+										
+						if(data.authed){
+							item += '<li class="grid-33 tablet-grid-33 mobile-grid-33 grid-parent text-center"><a target="_blank" title="'+(media.user_has_liked?'Unlike this ?':'Like this ?')+'">'+
+											'<i class="ic sg-heart '+(media.user_has_liked?'active':'')+'"></i>'+
+										'</a></li>';
 						}
 									
-						item += '<section>'+(media.caption ? '<a class="userlink" href="/main/user/'+media.caption.from.username+'">'+media.caption.from.username+'</a> : '+media.caption.text.replace(/(^| )@([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"userlink\" href=\"/main/user/$2\">@$2</a>").replace(/(^| )#([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"tag\" href=\"/main/tag/$2\">#$2</a>"):'')+'</section>'+
+						item += '</ul><section>'+(media.caption ? '<a class="userlink" href="/main/user/'+media.caption.from.username+'">'+media.caption.from.username+'</a> : '+media.caption.text.replace(/(^| )@([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"userlink\" href=\"/main/user/$2\">@$2</a>").replace(/(^| )#([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"tag\" href=\"/main/tag/$2\">#$2</a>"):'')+'</section>'+
 								'</div>'+
 								(media.type == 'video'? '<video src="'+(media.videos.low_bandwidth?media.videos.low_bandwidth.url:media.videos.low_resolution.url)+'" muted loop autoplay preload="auto">' : '<img src="'+media.images.low_resolution.url+'">')+
 								'<img class="small-avatar" src="'+media.user.profile_picture+'" title="'+media.user.full_name+'">'+
