@@ -10,9 +10,9 @@
 		</div>
 		<div class="grid-25 mobile-grid-100 text-center stats">
 			<ul>
-				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.media %><br/>Media</li>
-				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.followed_by %><br>Follower</li>
-				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= @user.counts.follows %><br/>Following</li>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= number_with_delimiter(@user.counts.media, delimiter: '.') %><br/>Media</li>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= number_with_delimiter(@user.counts.followed_by, delimiter: '.' ) %><br>Follower</li>
+				<li class="grid-33 tablet-grid-33 mobile-grid-33"><%= number_with_delimiter(@user.counts.follows, delimiter: '.') %><br/>Following</li>
 			</ul>
 		</div>
 	</div>

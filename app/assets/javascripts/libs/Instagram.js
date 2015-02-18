@@ -107,7 +107,7 @@ define([], function () {
 									
 						item += '</ul><section>'+(media.caption ? '<a class="userlink" href="/main/user/'+media.caption.from.username+'">'+media.caption.from.username+'</a> : '+media.caption.text.replace(/(^| )@([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"userlink\" href=\"/main/user/$2\">@$2</a>").replace(/(^| )#([A-Za-z0-9_-]+)(?![A-Za-z0-9_\]-])/g, "$1<a class=\"tag\" href=\"/main/tag/$2\">#$2</a>"):'')+'</section>'+
 								'</div>'+
-								(media.type == 'video'? '<video src="'+(media.videos.low_bandwidth?media.videos.low_bandwidth.url:media.videos.low_resolution.url)+'" muted loop autoplay preload="auto">' : '<img src="'+media.images.low_resolution.url+'">')+
+								(media.type == 'video'? '<video muted loop autoplay preload="auto" poster="'+media.images.standard_resolution.url+'"><source src="'+(media.videos.low_bandwidth?media.videos.low_bandwidth.url:media.videos.low_resolution.url)+'" type="video/mp4;"></video>' : '<img src="'+media.images.low_resolution.url+'">')+
 								'<img class="small-avatar" src="'+media.user.profile_picture+'" title="'+media.user.full_name+'">'+
 							'</span>'+
 						'</li>';
