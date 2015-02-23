@@ -15,8 +15,12 @@ class MainController < ApplicationController
   end
   
   def user
-    client = Instagram.client(:access_token => session[:access_token])
-	@user = client.user
+    if session[:access_token]
+		client = Instagram.client(:access_token => session[:access_token])
+		@user = client.user
+	else
+		client = Instagram.client()
+	end
     searchid = client.user_search(params[:id])[0]
 	@other_user = client.user(searchid.id)
   end
